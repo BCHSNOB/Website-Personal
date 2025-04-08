@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portofolio & Biodata</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .fab-system {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 1000; 
+      display: flex;
+      flex-direction: column-reverse; 
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .fab-main-button {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff7b54, #ff5733);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      border: none;
+      outline: none;
+    }
+    
+    .fab-menu {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .fab-menu.open {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .fab-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      text-decoration: none;
+    }
+    
+    .fab-button:hover, .fab-main-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+    
+    .fab-tooltip {
+      position: absolute;
+      left: 60px;
+      background: white;
+      color: #333;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .fab-button:hover .fab-tooltip {
+      opacity: 1;
+      left: 70px;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #fff;
+      text-align: center;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #fff;
+      text-align: center;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    header.navbar {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px 0;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Navbar saat disembunyikan */
+    header.navbar.hide {
+      transform: translateY(-100%);
+    }
+    
+    /* Navbar saat muncul kembali */
+    header.navbar.show {
+      transform: translateY(0);
+      background: rgba(0, 0, 0, 0.9);
+    }
+    
+    /* Style lainnya tetap sama */
+    header.navbar h3 a {
+      margin: 0 20px;
+      font-size: 20px;
+      text-decoration: none;
+      color: white;
+    }
+    
+    .navbar .menu {
+      display: flex;
+      margin-right: 20px;
+    }
+    
+    .navbar .menu a {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      margin: 0 15px;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .navbar .menu a:hover {
+      color: violet;
+    }
+
+    section.hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    section.hero h2,
+    section.hero p,
+    section.hero .btn {
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    section.hero h2 {
+      font-size: 3em;
+      margin: 0.5em 0;
+      animation-delay: 0.3s;
+    }
+
+    section.hero p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin: 0 auto;
+      animation-delay: 0.6s;
+    }
+
+    section.hero .btn {
+      animation-delay: 0.9s;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      color: #fff;
+      background: #ff7b54;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff5733;
+    }
+
+    section.features {
+      padding: 50px 20px;
+      background: #fff;
+      color: #333;
+    }
+
+    section.features h2 {
+      margin-bottom: 30px;
+      font-size: 2.5em;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-item {
+      background: #f7f7f7;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-item:hover {
+      transform: scale(1.05);
+    }
+
+    .feature-item img {
+     width: 100%;
+     max-width: 200px; 
+     height: auto;
+     border-radius: 80%; 
+     border: 3px solid #fff;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+     display: block;
+     margin: 0 auto 15px;
+}
+
+    .biodata, .riwayat, .kontak {
+      background: white;
+      color: #333;
+      margin: 20px auto;
+      padding: 30px 20px;
+      border-radius: 20px;
+      width: 85%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .biodata-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .biodata-item {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      flex: 1 1 300px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+    }
+
+    .pendidikan {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 20px;
+      width: 200px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .sd { background: #dde668; }
+    .smp { background: #c6f1f5c8; }
+    .sma { background: #9ba4a5c8; }
+
+    .icon-container {
+      margin-top: 10px;
+    }
+
+    .icon-container a {
+      font-size: 30px;
+      color: #4cc0c0;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .icon-container a:hover {
+      color: #6b184d;
+      animation: bounce 0.6s;
+    }
+
+    footer {
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+
+    main {
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <h3><a href="#">Selamat Datang</a></h3>
+        <div class="menu">
+          <a href="#features">Gambar</a>
+          <a href="#biodata">Biodata</a>
+          <a href="#kontak">Kontak</a>
+        </div>
+      </header>
+
+  <script>
+    // NAVBAR SCROLL BEHAVIOR
+    let lastScroll = 0;
+    const navbar = document.querySelector('header.navbar');
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        // Di paling atas - reset navbar
+        navbar.classList.remove('hide');
+        navbar.classList.remove('show');
+        return;
+      }
+      
+      if (currentScroll > lastScroll && !navbar.classList.contains('hide')) {
+        // Scroll ke bawah - sembunyikan navbar
+        navbar.classList.remove('show');
+        navbar.classList.add('hide');
+      } else if (currentScroll < lastScroll && navbar.classList.contains('hide')) {
+        // Scroll ke atas - tampilkan navbar
+        navbar.classList.remove('hide');
+        navbar.classList.add('show');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+
+  <section class="hero">
+    <h2>HELLO</h2>
+    <p>"Saya Budi Chandra Hasiholan, ini adalah profil Saya"</p>
+    <a href="#features" class="btn">SCROLL</a>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Tentang Saya</h2>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <img src="Images/1.jpg" alt="Bayarin">
+        <h3></h3>
+        <p></p>
+      </div>
+      <div class="feature-item">
+        <img src="Images/2.jpg" alt="Hoosting">
+        <h3></h3>
+        <p></p>
+      </div>
+      <div class="feature-item">
+        <img src="Images/2.jpg" alt="Dong">
+        <h3></h3>
+        <p></p>
+      </div>
+    </div>
+  </section>
+  
+  <div class="fab-system">
+    <button class="fab-main-button" id="mainFab">
+      <i class="fas fa-plus"></i>
+    </button>
+    <div class="fab-menu" id="fabMenu">
+      <a href="mailto:1hasiholan600@gmail.com?subject=Judul Pesan&body=Isi pesan..." class="fab-button">
+        <i class="fas fa-envelope"></i>
+        <span class="fab-tooltip">Email Admin</span>
+      </a>
+      <a href="https://whatsapp.com/channel/0029VajWJqW7oQhUclgMpk3Z" target="_blank" class="fab-button">
+        <i class="fab fa-whatsapp"></i>
+        <span class="fab-tooltip">WhatsApp Admin</span>
+      </a>
+      <div class="fab-button">
+        <i class="fas fa-question-circle"></i>
+        <span class="fab-tooltip">Bantuan</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    
+    document.getElementById('mainFab').addEventListener('click', function() {
+      const menu = document.getElementById('fabMenu');
+      menu.classList.toggle('open');
+      
+      const icon = this.querySelector('i');
+      icon.classList.toggle('fa-plus');
+      icon.classList.toggle('fa-times');
+      
+    
+      window.addEventListener('scroll', function() {
+        const fabContainer = document.querySelector('.fab-system');
+        if (window.scrollY > 100) {
+          fabContainer.style.bottom = '20px';
+          fabContainer.style.transition = 'bottom 0.3s ease';
+        } else {
+          fabContainer.style.bottom = '30px';
+        }
+      });
+    });
+  </script>
+
+
+  <main>
+    <section class="biodata" id="biodata">
+      <h2>Biodata</h2>
+      <div class="biodata-container">
+        <div class="biodata-item"><i class="fas fa-user"></i> Nama : Budi Chandra Hasiholan</div>
+        <div class="biodata-item"><i class="fas fa-graduation-cap"></i> Jurusan : Teknik Informatika 2023</div>
+        <div class="biodata-item"><i class="fas fa-calendar-days"></i> TTL : Jakarta, 25 Mei 2004</div>
+        <div class="biodata-item"><i class="fas fa-mars"></i> Jenis Kelamin : Laki-Laki</div>
+        <div class="biodata-item"><i class="fas fa-university"></i> Kampus : Universitas Katolik Santo Thomas</div>
+        <div class="biodata-item"><i class="fas fa-location-dot"></i> Alamat : Gg.jalan Sadaperarih No.1</div>
+      </div>
+    </section>
+
+    <section class="riwayat">
+      <h2>Riwayat Pendidikan</h2>
+      <div class="pendidikan">
+        <div class="card sd">
+          <h3>SD</h3>
+          <p><strong>SD Negeri 4 Suhutnihuta Pardomuan</strong></p>
+          <p>Samosir</p>
+        </div>
+        <div class="card smp">
+          <h3>SMP</h3>
+          <p><strong>SMP Negeri 1 Palipi</strong></p>
+          <p>Samosir</p>
+        </div>
+        <div class="card sma">
+          <h3>SMK</h3>
+          <p><strong>SMK Negeri 1 Nainggolan</strong></p>
+          <p>Samosir</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="kontak" id="kontak">
+      <h2>Info Lebih Lanjut</h2>
+      <div class="icon-container">
+        <a href="http://www.youtube.com/@ProjekTutorial" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://github.com/BCHSNOB" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/budi_chandra_hasiholan?igsh=MXQ3bHR5cWprNzJoZQ==" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </section>
+
+    <section class="kontak" id="kontak">
+        <h2>Penjelasan Properti CSS</h2>
+        <div class="feature-item" style="max-width: 800px; margin: 20px auto;">
+          <p>Berikut adalah penjelasan tentang properti CSS yang digunakan dalam proyek ini:</p>
+          <ul>
+            <li><strong>position: fixed</strong> - Membuat elemen tetap di tempat saat halaman di-scroll</li>
+            <li><strong>top / bottom / left / right</strong> - Mengatur jarak elemen dari sisi layar</li>
+            <li><strong>z-index</strong> - Menentukan urutan tumpukan elemen</li>
+            <li><strong>display: flex</strong> - Mengaktifkan layout Flexbox</li>
+            <li><strong>flex-direction: column / column-reverse</strong> - Menyusun elemen secara vertikal (atas ke bawah / bawah ke atas)</li>
+            <li><strong>justify-content</strong> - Mengatur posisi elemen di sumbu utama (horizontal/vertikal tergantung arah)</li>
+            <li><strong>align-items</strong> - Menyelaraskan elemen di sumbu silang (biasanya horizontal)</li>
+            <li><strong>gap</strong> - Menentukan jarak antar elemen</li>
+            <li><strong>flex-wrap: wrap</strong> - Membungkus elemen jika tidak cukup ruang</li>
+            <li><strong>flex: 1 1 300px</strong> - Kontrol pertumbuhan dan ukuran minimum elemen dalam Flexbox</li>
+            <li><strong>width / height</strong> - Menentukan ukuran elemen</li>
+            <li><strong>margin</strong> - Jarak luar antara elemen dan elemen lain</li>
+            <li><strong>padding</strong> - Jarak dalam antara isi elemen dan tepi elemen</li>
+            <li><strong>background: linear-gradient</strong> - Gradasi warna latar belakang</li>
+            <li><strong>color</strong> - Warna teks</li>
+            <li><strong>border-radius</strong> - Membuat sudut elemen membulat</li>
+            <li><strong>box-shadow</strong> - Menambahkan efek bayangan pada elemen</li>
+            <li><strong>text-shadow</strong> - Efek bayangan pada teks</li>
+            <li><strong>text-align</strong> - Menentukan perataan teks</li>
+            <li><strong>font-size</strong> - Ukuran huruf</li>
+            <li><strong>font-family</strong> - Jenis font yang digunakan</li>
+            <li><strong>font-weight</strong> - Ketebalan huruf</li>
+            <li><strong>white-space: nowrap</strong> - Mencegah teks turun ke baris baru</li>
+            <li><strong>transition</strong> - Membuat efek perubahan halus saat properti berubah</li>
+            <li><strong>transform</strong> - Mengubah bentuk elemen (perbesar, geser, putar, dll)</li>
+            <li><strong>:hover</strong> - Efek saat pointer berada di atas elemen</li>
+            <li><strong>cursor: pointer</strong> - Mengubah kursor jadi tangan saat diarahkan ke elemen</li>
+            <li><strong>opacity</strong> - Mengatur transparansi elemen</li>
+            <li><strong>pointer-events: none</strong> - Membuat elemen tidak merespons interaksi mouse</li>
+            <li><strong>animation</strong> - Menjalankan animasi pada elemen</li>
+            <li><strong>@keyframes</strong> - Mendefinisikan animasi kustom</li>
+            <li><strong>scroll-behavior: smooth</strong> - Membuat scroll halaman lebih halus</li>
+            <li><strong>text-decoration: none</strong> - Menghilangkan garis bawah pada teks/link</li>
+            <li><strong>display: grid</strong> - Mengaktifkan sistem layout grid</li>
+            <li><strong>grid-template-columns</strong> - Menentukan jumlah dan ukuran kolom dalam grid</li>
+          </ul>
+          
+        </div>
+      </section>
+  </main>
+
+  <footer>
+    <p>&copy; Performance & security by Cloudflare.</p>
+  </footer>
+</body>
+</html>
